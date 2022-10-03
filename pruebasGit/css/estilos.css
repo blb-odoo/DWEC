@@ -2,3 +2,7 @@ h1{
     font-family: sans-serif;
     border-bottom: 1px solid black;
 }
+
+p{
+    background-color: lightgray;
+}
