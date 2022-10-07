@@ -4,9 +4,9 @@ table{
     margin: 5%;
 }
 table,tr,td{         
-    border: 2px solid rgb(255, 47, 182);
+    border: 2px solid black;
     border-collapse:collapse ;
-    background-color: rgb(252, 218, 234);
+    background-color: white;
 
 }
 td {width: 50px;
