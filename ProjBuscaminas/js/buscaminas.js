@@ -64,7 +64,6 @@ function contarMinas (arrayTablero, maxFilas, maxColumnas) {
                     }
                     arrayTablero[fila][columna] = numMinasAlrededor;
                 }
-    
             }
         }
     }
@@ -79,7 +78,7 @@ function pintarTablero(tablero, filas, columnas) {
         document.write('<tr>');
     
         for (let j = 0; j < columnas; j++) {
-            document.write('<td>' + tablero[i][j] + '</td>');
+            document.write(`<td>${tablero[i][j]}</td>`);
         }
     
         document.write('</tr>');
