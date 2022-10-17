@@ -4,9 +4,10 @@ function AppFuncionando() {
     let maxColumnas = prompt('¿Cuántas columnas quieres?');
     let numMinas = prompt('¿Cuántas minas quieres introducir?');
 
-    tablero = crearArrayTablero(maxFilas, maxColumnas);
-    tablero = colocarMinas(tablero, numMinas, maxFilas, maxColumnas);
-    pintarTablero(tablero, maxFilas, maxColumnas);
+    tableroBuscaminas = crearArrayTablero(maxFilas, maxColumnas);
+    tableroBuscaminas = colocarMinas(tableroBuscaminas, numMinas, maxFilas, maxColumnas);
+    tableroBuscaminas = contarMinas (tableroBuscaminas, maxFilas, maxColumnas)
+    pintarTablero(tableroBuscaminas, maxFilas, maxColumnas);
 }
     
 
