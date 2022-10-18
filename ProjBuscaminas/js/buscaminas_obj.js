@@ -6,7 +6,7 @@ class Tablero {
         this.crearTablero();
     }
 
-    crearTablero () {
+    crearTablero() {
         // Crear array bidimensional para guardar las minas
         this.arrayTablero = [];
 
@@ -19,14 +19,25 @@ class Tablero {
         }
     }
 
-    
+    dibujarTablero() {
+        // Creamos el tablero en html
+        document.write('<table>');
+
+        for (let i = 0; i < this.filas; i++) {
+            document.write('<tr>');
+
+            for (let j = 0; j < this.columnas; j++) {
+                document.write(`<td>${this.arrayTablero[i][j]}</td>`);
+            }
+
+            document.write('</tr>');
+        }
+        document.write('</table>');
+    }
+
+
 }
 
-const buscaminas = new Tablero(4,3);
-buscaminas.columnas = 5;
-console.log(buscaminas.filas);
-console.log(buscaminas.columnas);
-console.log(buscaminas.arrayTablero);
-buscaminas.crearTablero()
-console.log(buscaminas.arrayTablero);
+const buscaminas = new Tablero(4, 3);
+buscaminas.dibujarTablero();
 
