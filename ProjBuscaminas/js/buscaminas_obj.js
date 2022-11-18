@@ -47,11 +47,25 @@ class Tablero {
 
             for (let j = 0; j < this.columnas; j++) {
                 columna = document.createElement('td');
+                columna.id = `f${i}_c${j}`;
+                columna.dataset.fila = i;
+                columna.dataset.columna = j;
                 fila.appendChild(columna);
+
+                columna.addEventListener('click', this.despejar);
+                columna.addEventListener('contextmenu', this.marcar);
             }
         }
 
         document.body.appendChild(tabla);
+    }
+
+    despejar() {
+        alert("Despejando");
+    }
+
+    marcar() {
+        alert("He marcado");
     }
     
 
