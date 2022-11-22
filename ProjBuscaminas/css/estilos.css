@@ -13,3 +13,16 @@ td {width: 50px;
     height: 50px;
     text-align: center;
 }
+
+
+.bandera {
+    background-image: url(../imagenes/flag-fill.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.interrogante {
+    background-image: url(../imagenes/question-lg.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}

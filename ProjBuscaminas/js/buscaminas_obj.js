@@ -61,11 +61,35 @@ class Tablero {
     }
 
     despejar() {
-        alert("Despejando");
+        let columna = this.dataset.columna;
+        let fila = this.dataset.fila;
+        alert(`Despejar celda (${fila}, ${columna})`);
     }
 
     marcar() {
-        alert("He marcado");
+        /*
+        if (this.innerHTML === `&#128681`) {
+            this.innerHTML = `&#10067`;
+        } else if (this.innerHTML === `&#10067`) { 
+            this.innerHTML = "";
+        } else {
+            this.innerHTML = `&#128681`
+        }  
+        */
+
+        // Utilizando clases en el .css
+         switch (this.className) {
+            case "":
+                this.className = "bandera";
+                break;
+            case "bandera":
+                this.className = "interrogante";
+                break;
+            default:
+                this.className = "";
+                break;
+         }
+            
     }
     
 
