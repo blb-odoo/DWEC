@@ -68,10 +68,9 @@ class Tablero {
 
     marcar() {
         
-        
+
         
         // Utilizando los formatos UNICODE de JS
-        /*
         if (this.innerHTML == "") {
             this.innerHTML = "\uD83D\uDEA9";
         } else if (this.innerHTML == "\uD83D\uDEA9") {
@@ -79,7 +78,6 @@ class Tablero {
         } else if(this.innerHTML == "\u2754") {
             this.innerHTML = "";
         };
-        */
 
         // Utilizando clases en el .css
         /*
