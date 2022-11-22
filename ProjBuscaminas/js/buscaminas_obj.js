@@ -67,10 +67,30 @@ class Tablero {
     }
 
     marcar() {
+        let imagenBandera = document.createElement('img');
+        imagenBandera.src = 'imagenes/interrogante.png';
+        imagenBandera.style.height = "50px";
+        this.appendChild(imagenBandera);
         
+        let imagenInterrogante = document.createElement('img');
+        imagenInterrogante.src = 'imagenes/bandera.png';
+        imagenInterrogante.style.height = "50px";
+        this.appendChild(imagenInterrogante);
+        
+        switch (this.childrenNode[0].src) {
+            case 'imagenes/bandera.png':
+                this.childrenNode[0].src = "";
+                break;
+            case 'imagenes/interrogante.png':
+                this.childrenNode[0].src = 'imagenes/bandera.png';
+                break;
+            default:
+                this.childrenNode[0].src = 'imagenes/interrogante.png';
+                break;
+        }
 
-        
         // Utilizando los formatos UNICODE de JS
+        /*
         if (this.innerHTML == "") {
             this.innerHTML = "\uD83D\uDEA9";
         } else if (this.innerHTML == "\uD83D\uDEA9") {
@@ -78,6 +98,7 @@ class Tablero {
         } else if(this.innerHTML == "\u2754") {
             this.innerHTML = "";
         };
+        */
 
         // Utilizando clases en el .css
         /*
