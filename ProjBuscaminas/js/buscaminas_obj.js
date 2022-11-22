@@ -67,17 +67,22 @@ class Tablero {
     }
 
     marcar() {
+        
+        
+        
+        // Utilizando los formatos UNICODE de JS
         /*
-        if (this.innerHTML === `&#128681`) {
-            this.innerHTML = `&#10067`;
-        } else if (this.innerHTML === `&#10067`) { 
+        if (this.innerHTML == "") {
+            this.innerHTML = "\uD83D\uDEA9";
+        } else if (this.innerHTML == "\uD83D\uDEA9") {
+            this.innerHTML = "\u2754";
+        } else if(this.innerHTML == "\u2754") {
             this.innerHTML = "";
-        } else {
-            this.innerHTML = `&#128681`
-        }  
+        };
         */
 
         // Utilizando clases en el .css
+        /*
          switch (this.className) {
             case "":
                 this.className = "bandera";
@@ -89,6 +94,7 @@ class Tablero {
                 this.className = "";
                 break;
          }
+        */
             
     }
     
