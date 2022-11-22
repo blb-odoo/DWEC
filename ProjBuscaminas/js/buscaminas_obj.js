@@ -67,6 +67,7 @@ class Tablero {
     }
 
     marcar() {
+        // Utilizando el elemento img
         let imagenBandera = document.createElement('img');
         imagenBandera.src = 'imagenes/interrogante.png';
         imagenBandera.style.height = "50px";
