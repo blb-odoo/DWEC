@@ -68,26 +68,18 @@ class Tablero {
 
     marcar() {
         // Utilizando el elemento img
-        let imagenBandera = document.createElement('img');
-        imagenBandera.src = 'imagenes/interrogante.png';
-        imagenBandera.style.height = "50px";
-        this.appendChild(imagenBandera);
+        let imagen = document.createElement('img');
+        imagen.style.height = "50px";
         
-        let imagenInterrogante = document.createElement('img');
-        imagenInterrogante.src = 'imagenes/bandera.png';
-        imagenInterrogante.style.height = "50px";
-        this.appendChild(imagenInterrogante);
-        
-        switch (this.childrenNode[0].src) {
-            case 'imagenes/bandera.png':
-                this.childrenNode[0].src = "";
-                break;
-            case 'imagenes/interrogante.png':
-                this.childrenNode[0].src = 'imagenes/bandera.png';
-                break;
-            default:
-                this.childrenNode[0].src = 'imagenes/interrogante.png';
-                break;
+        if (this.lastChild == null) {
+            imagen.src = "imagenes/bandera.png";
+            this.appendChild(imagen);
+        } else if (this.lastChild.src == "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/bandera.png") {
+            this.lastChild.src = "imagenes/interrogante.png";
+        } else if (this.lastChild.src == "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/interrogante.png") {
+            this.lastChild.src = "";
+        } else if (this.lastChild.src == "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/") {
+            this.lastChild.src == "imagenes/bandera.png";
         }
 
         // Utilizando los formatos UNICODE de JS
