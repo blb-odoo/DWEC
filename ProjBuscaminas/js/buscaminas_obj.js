@@ -51,64 +51,13 @@ class Tablero {
                 columna.dataset.fila = i;
                 columna.dataset.columna = j;
                 fila.appendChild(columna);
-
-                columna.addEventListener('click', this.despejar);
-                columna.addEventListener('contextmenu', this.marcar);
             }
         }
 
         document.body.appendChild(tabla);
     }
 
-    despejar() {
-        let columna = this.dataset.columna;
-        let fila = this.dataset.fila;
-        alert(`Despejar celda (${fila}, ${columna})`);
-    }
-
-    marcar() {
-        // Utilizando el elemento img
-        let imagen = document.createElement('img');
-        imagen.style.height = "50px";
-        
-        if (this.lastChild == null) {
-            imagen.src = "imagenes/bandera.png";
-            this.appendChild(imagen);
-        } else if (this.lastChild.src == "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/bandera.png") {
-            this.lastChild.src = "imagenes/interrogante.png";
-        } else if (this.lastChild.src == "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/interrogante.png") {
-            this.lastChild.src = "";
-        } else if (this.lastChild.src == "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/") {
-            this.lastChild.src == "imagenes/bandera.png";
-        }
-
-        // Utilizando los formatos UNICODE de JS
-        /*
-        if (this.innerHTML == "") {
-            this.innerHTML = "\uD83D\uDEA9";
-        } else if (this.innerHTML == "\uD83D\uDEA9") {
-            this.innerHTML = "\u2754";
-        } else if(this.innerHTML == "\u2754") {
-            this.innerHTML = "";
-        };
-        */
-
-        // Utilizando clases en el .css
-        /*
-         switch (this.className) {
-            case "":
-                this.className = "bandera";
-                break;
-            case "bandera":
-                this.className = "interrogante";
-                break;
-            default:
-                this.className = "";
-                break;
-         }
-        */
-            
-    }
+    
     
 
     modificarFilas(nuevasFilas) {
@@ -175,6 +124,71 @@ class Buscaminas extends Tablero {
                 }
             }
         }
+    }
+
+    dibujarTableroDOM(){
+        super.dibujarTableroDOM();
+
+        let celda;
+
+        for (let i = 0; i < this.filas; i++) {
+            for (let j = 0; j < this.columnas; j++){
+                celda = document.getElementById(`f${i}_c${j}`);
+
+                celda.addEventListener('click', this.despejar);
+                celda.addEventListener('contextmenu', this.marcar);
+            }
+        }
+    }
+
+    despejar() {
+        let columna = this.dataset.columna;
+        let fila = this.dataset.fila;
+        alert(`Despejar celda (${fila}, ${columna})`);
+    }
+
+    marcar() {
+        // Utilizando el elemento img
+        let imagen = document.createElement('img');
+        imagen.style.height = "50px";
+        
+        if (this.lastChild == null) {
+            imagen.src = "imagenes/bandera.png";
+            this.appendChild(imagen);
+        } else if (this.lastChild.src == "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/bandera.png") {
+            this.lastChild.src = "imagenes/interrogante.png";
+        } else if (this.lastChild.src == "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/interrogante.png") {
+            this.lastChild.src = "";
+        } else if (this.lastChild.src == "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/") {
+            this.lastChild.src == "imagenes/bandera.png";
+        }
+
+        // Utilizando los formatos UNICODE de JS
+        /*
+        if (this.innerHTML == "") {
+            this.innerHTML = "\uD83D\uDEA9";
+        } else if (this.innerHTML == "\uD83D\uDEA9") {
+            this.innerHTML = "\u2754";
+        } else if(this.innerHTML == "\u2754") {
+            this.innerHTML = "";
+        };
+        */
+
+        // Utilizando clases en el .css
+        /*
+         switch (this.className) {
+            case "":
+                this.className = "bandera";
+                break;
+            case "bandera":
+                this.className = "interrogante";
+                break;
+            default:
+                this.className = "";
+                break;
+         }
+        */
+            
     }
 }
 
