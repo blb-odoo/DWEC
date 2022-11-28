@@ -151,19 +151,20 @@ class Buscaminas extends Tablero {
 
     marcar(elEvento) {
         let evento = elEvento || window.event;
+        let celda = evento.currentTarget;
         // Utilizando el elemento img
         let imagen = document.createElement('img');
         imagen.style.height = "50px";
         
-        if (this.lastChild == null) {
+        if (celda.lastChild == null) {
             imagen.src = "imagenes/bandera.png";
-            this.appendChild(imagen);
-        } else if (this.lastChild.src == "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/bandera.png") {
-            this.lastChild.src = "imagenes/interrogante.png";
-        } else if (this.lastChild.src == "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/interrogante.png") {
-            this.lastChild.src = "";
-        } else if (this.lastChild.src == "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/") {
-            this.lastChild.src == "imagenes/bandera.png";
+            celda.appendChild(imagen);
+        } else if (celda.lastChild.src == "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/bandera.png") {
+            celda.lastChild.src = "imagenes/interrogante.png";
+        } else if (celda.lastChild.src == "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/interrogante.png") {
+            celda.lastChild.src = "";
+        } else if (celda.lastChild.src == "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/") {
+            celda.lastChild.src == "imagenes/bandera.png";
         }
 
         // Utilizando los formatos UNICODE de JS
