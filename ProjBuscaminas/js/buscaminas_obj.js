@@ -135,19 +135,22 @@ class Buscaminas extends Tablero {
             for (let j = 0; j < this.columnas; j++){
                 celda = document.getElementById(`f${i}_c${j}`);
 
-                celda.addEventListener('click', this.despejar);
-                celda.addEventListener('contextmenu', this.marcar);
+                celda.addEventListener('click', this.despejar.bind(this));
+                celda.addEventListener('contextmenu', this.marcar.bind(this));
             }
         }
     }
 
-    despejar() {
-        let columna = this.dataset.columna;
-        let fila = this.dataset.fila;
-        alert(`Despejar celda (${fila}, ${columna})`);
-    }
+    despejar(elEvento) {
+        let evento = elEvento || window.event;
+        let celda = evento.currentTarget;
+        let fila = celda.dataset.fila;
+        let columna = celda.dataset.columna;
+        
+    };
 
-    marcar() {
+    marcar(elEvento) {
+        let evento = elEvento || window.event;
         // Utilizando el elemento img
         let imagen = document.createElement('img');
         imagen.style.height = "50px";
