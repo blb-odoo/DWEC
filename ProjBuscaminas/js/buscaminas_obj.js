@@ -139,6 +139,7 @@ class Buscaminas extends Tablero {
                 celda.addEventListener('contextmenu', this.marcar.bind(this));
             }
         }
+        console.log(this.arrayTablero);
     }
 
     despejar(elEvento) {
@@ -146,8 +147,25 @@ class Buscaminas extends Tablero {
         let celda = evento.currentTarget;
         let fila = celda.dataset.fila;
         let columna = celda.dataset.columna;
+
+        let valorCelda = this.arrayTablero[fila][columna];
+        let esNumero = (valorCelda != 'MINA' && valorCelda != 0);
+        let esBomba = (valorCelda == 'MINA');
+
+        let rutaBandera = "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/bandera.png";
         
-    };
+
+        if (esNumero) {
+            celda.innerHTML = valorCelda;
+            celda.removeEventListener('click', this.despejar.bind(this));
+            celda.removeEventListener('contextmenu', this.marcar.bind(this));
+        } else if (esBomba) {
+            celda.innerHTML = valorCelda;
+            celda.parentNode.parentNode;
+
+            }
+
+    }
 
     marcar(elEvento) {
         let evento = elEvento || window.event;
@@ -194,6 +212,7 @@ class Buscaminas extends Tablero {
         */
             
     }
+
 }
 
 window.onload = function() {
