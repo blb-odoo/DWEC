@@ -151,18 +151,38 @@ class Buscaminas extends Tablero {
         let valorCelda = this.arrayTablero[fila][columna];
         let esNumero = (valorCelda != 'MINA' && valorCelda != 0);
         let esBomba = (valorCelda == 'MINA');
+        let bombaSeleccionadaMal;
 
         let rutaBandera = "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/bandera.png";
         
+        let arrayFilas;
+        let arrayColumnas; 
 
         if (esNumero) {
             celda.innerHTML = valorCelda;
             celda.removeEventListener('click', this.despejar.bind(this));
             celda.removeEventListener('contextmenu', this.marcar.bind(this));
         } else if (esBomba) {
+            
+            arrayFilas = celda.parentNode.parentNode.childNodes;
+            for (let tr of arrayFilas) {
+                arrayColumnas = tr.childNodes;
+                for (let td of arrayColumnas){
+                    fila = td.dataset.fila;
+                    columna = td.dataset.columna;
+                    valorCelda = this.arrayTablero[fila][columna]
+                    if (td.lastChild != null){
+                        bombaSeleccionadaMal = (td.lastChild.src ==  rutaBandera && valorCelda != 'MINA');
+                    
+                        if (bombaSeleccionadaMal){
+                            td.lastChild.src = "";
+                            td.style.backgroundColor = 'red';
+                            td.innerHTML = valorCelda;
+                        }
+                    }
+                }
+            }
             celda.innerHTML = valorCelda;
-            celda.parentNode.parentNode;
-
             }
 
     }
