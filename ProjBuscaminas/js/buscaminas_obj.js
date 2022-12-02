@@ -168,6 +168,9 @@ class Buscaminas extends Tablero {
             for (let tr of arrayFilas) {
                 arrayColumnas = tr.childNodes;
                 for (let td of arrayColumnas){
+                    td.removeEventListener('click', this.despejar.bind(this));
+                    td.removeEventListener('contextmenu', this.marcar.bind(this));
+
                     fila = td.dataset.fila;
                     columna = td.dataset.columna;
                     valorCelda = this.arrayTablero[fila][columna]
@@ -178,12 +181,16 @@ class Buscaminas extends Tablero {
                             td.lastChild.src = "";
                             td.style.backgroundColor = 'red';
                             td.innerHTML = valorCelda;
+                        } else if (valorCelda == 'MINA') {
+                            td.innerHTML = valorCelda;
                         }
+                    } else if (valorCelda == 'MINA') {
+                            td.innerHTML = valorCelda;
                     }
                 }
             }
-            celda.innerHTML = valorCelda;
-            }
+            alert(`¡HAS PERDIDO!`);
+        }
 
     }
 
@@ -200,9 +207,7 @@ class Buscaminas extends Tablero {
         } else if (celda.lastChild.src == "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/bandera.png") {
             celda.lastChild.src = "imagenes/interrogante.png";
         } else if (celda.lastChild.src == "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/interrogante.png") {
-            celda.lastChild.src = "";
-        } else if (celda.lastChild.src == "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/") {
-            celda.lastChild.src == "imagenes/bandera.png";
+            celda.removeChild(celda.lastChild);
         }
 
         // Utilizando los formatos UNICODE de JS
