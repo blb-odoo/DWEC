@@ -84,6 +84,7 @@ class Buscaminas extends Tablero {
 
         this.colocarMinas();
         this.colocarNumMinas();
+        this.dibujarTableroDOM();
     }
 
     colocarMinas() {
@@ -195,18 +196,38 @@ class Buscaminas extends Tablero {
     }
 
     marcar(elEvento) {
+        // Capturar el evento y el nodo que lo generó
         let evento = elEvento || window.event;
         let celda = evento.currentTarget;
-        // Utilizando el elemento img
+
+        // Crear el elemento img
         let imagen = document.createElement('img');
         imagen.style.height = "50px";
-        
-        if (celda.lastChild == null) {
+
+        // Definir las rutas relativas donde se encuentran las imágenes
+        let rutaBandera = 'imagenes/bandera.png';
+        let rutaInterrogante = 'imagenes/interrogante.png';
+
+        // Definir la ruta relativa de la imagen en la celda seleccionada
+        let rutaImagen;
+
+        // Buscar la ruta relativa de la imagen para la celda seleccionada
+        if (celda.lastChild != null) {
+            rutaImagen = celda.lastChild.src.split('/').slice(-2).join('/');
+        }
+
+        // Comprobar imagen en la celda
+        let noHayImagen = (celda.lastChild == null);
+        let esBandera = (rutaImagen == rutaBandera);
+        let esInterrogante = (rutaImagen == rutaInterrogante);
+
+        // Marcar las celdas con la imagen adecuada
+        if (noHayImagen) {
             imagen.src = "imagenes/bandera.png";
             celda.appendChild(imagen);
-        } else if (celda.lastChild.src == "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/bandera.png") {
+        } else if (esBandera) {
             celda.lastChild.src = "imagenes/interrogante.png";
-        } else if (celda.lastChild.src == "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/interrogante.png") {
+        } else if (esInterrogante) {
             celda.removeChild(celda.lastChild);
         }
 
@@ -242,6 +263,5 @@ class Buscaminas extends Tablero {
 
 window.onload = function() {
     let buscaminas1 = new Buscaminas(5, 5, 5);
-    buscaminas1.dibujarTableroDOM();
 }
 
