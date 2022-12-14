@@ -133,12 +133,12 @@ class Buscaminas extends Tablero {
 
         let celda;
 
+        this.despejar = this.despejar.bind(this);
+        this.marcar = this.marcar.bind(this);
+
         for (let i = 0; i < this.filas; i++) {
             for (let j = 0; j < this.columnas; j++){
                 celda = document.getElementById(`f${i}_c${j}`);
-
-                this.despejar = this.despejar.bind(this);
-                this.marcar = this.marcar.bind(this);
 
                 celda.addEventListener('click', this.despejar);
                 celda.addEventListener('contextmenu', this.marcar);
@@ -161,6 +161,8 @@ class Buscaminas extends Tablero {
         // Marcar la celda despejada
         celda.dataset.despejado = true;
         celda.style.backgroundColor = "lightgrey";
+        celda.removeEventListener('click', this.despejar);
+        celda.removeEventListener('contextmenu', this.marcar);
 
         let valorCelda = this.arrayTablero[fila][columna];
         let esNumero = (valorCelda != 'MINA' && valorCelda != 0);
@@ -177,16 +179,15 @@ class Buscaminas extends Tablero {
 
         if (esNumero) {
             celda.innerHTML = valorCelda;
-            celda.removeEventListener('click', this.despejar);
-            celda.removeEventListener('contextmenu', this.marcar);
+            
         } else if (esBomba) {
             
             arrayFilas = celda.parentNode.parentNode.childNodes;
             for (let tr of arrayFilas) {
                 arrayColumnas = tr.childNodes;
                 for (let td of arrayColumnas){
-                    td.removeEventListener('click', this.despejar.bind(this));
-                    td.removeEventListener('contextmenu', this.marcar.bind(this));
+                    td.removeEventListener('click', this.despejar);
+                    td.removeEventListener('contextmenu', this.marcar);
 
                     fila = td.dataset.fila;
                     columna = td.dataset.columna;
@@ -255,10 +256,11 @@ class Buscaminas extends Tablero {
 
         // Marcar las celdas con la imagen adecuada
         if (noHayImagen) {
-            celda.removeEventListener('click', this.despejar.bind(this));
+            celda.removeEventListener('click', this.despejar);
             imagen.src = "imagenes/bandera.png";
             celda.appendChild(imagen);
         } else if (esBandera) {
+            celda.addEventListener('click', this.despejar);
             celda.lastChild.src = "imagenes/interrogante.png";
         } else if (esInterrogante) {
             celda.removeChild(celda.lastChild);
