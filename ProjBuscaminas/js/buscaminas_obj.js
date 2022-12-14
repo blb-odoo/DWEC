@@ -50,6 +50,7 @@ class Tablero {
                 columna.id = `f${i}_c${j}`;
                 columna.dataset.fila = i;
                 columna.dataset.columna = j;
+                columna.dataset.despejado = false;
                 fila.appendChild(columna);
             }
         }
@@ -136,8 +137,11 @@ class Buscaminas extends Tablero {
             for (let j = 0; j < this.columnas; j++){
                 celda = document.getElementById(`f${i}_c${j}`);
 
-                celda.addEventListener('click', this.despejar.bind(this));
-                celda.addEventListener('contextmenu', this.marcar.bind(this));
+                this.despejar = this.despejar.bind(this);
+                this.marcar = this.marcar.bind(this);
+
+                celda.addEventListener('click', this.despejar);
+                celda.addEventListener('contextmenu', this.marcar);
             }
         }
         console.log(this.arrayTablero);
@@ -146,23 +150,35 @@ class Buscaminas extends Tablero {
     despejar(elEvento) {
         let evento = elEvento || window.event;
         let celda = evento.currentTarget;
-        let fila = celda.dataset.fila;
-        let columna = celda.dataset.columna;
+        
+        this.despejarCelda(celda);
+    }
+
+    despejarCelda(celda) {
+        let fila = parseInt(celda.dataset.fila);
+        let columna = parseInt(celda.dataset.columna);
+
+        // Marcar la celda despejada
+        celda.dataset.despejado = true;
+        celda.style.backgroundColor = "lightgrey";
 
         let valorCelda = this.arrayTablero[fila][columna];
         let esNumero = (valorCelda != 'MINA' && valorCelda != 0);
         let esBomba = (valorCelda == 'MINA');
+        let esVacio = (valorCelda == 0);
+        let estaDespejado;
         let bombaSeleccionadaMal;
 
         let rutaBandera = "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/bandera.png";
         
         let arrayFilas;
         let arrayColumnas; 
+        let celdaNueva;
 
         if (esNumero) {
             celda.innerHTML = valorCelda;
-            celda.removeEventListener('click', this.despejar.bind(this));
-            celda.removeEventListener('contextmenu', this.marcar.bind(this));
+            celda.removeEventListener('click', this.despejar);
+            celda.removeEventListener('contextmenu', this.marcar);
         } else if (esBomba) {
             
             arrayFilas = celda.parentNode.parentNode.childNodes;
@@ -191,6 +207,22 @@ class Buscaminas extends Tablero {
                 }
             }
             alert(`¡HAS PERDIDO!`);
+        }else if (esVacio) {
+
+            for (let cFila = fila - 1; cFila <= fila + 1; cFila++) {
+                if (cFila >= 0 && cFila < this.filas) {
+                    for (let cColumna = columna - 1; cColumna <= columna + 1; cColumna++) {
+                        if (cColumna >= 0 && cColumna < this.columnas) {
+                            celdaNueva = document.getElementById(`f${cFila}_c${cColumna}`)
+                            estaDespejado = (celdaNueva.dataset.despejado == 'true');
+                            if (!estaDespejado) {
+                                console.log(`f${cFila}_c${cColumna}`);
+                                this.despejarCelda(celdaNueva);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
     }
@@ -223,6 +255,7 @@ class Buscaminas extends Tablero {
 
         // Marcar las celdas con la imagen adecuada
         if (noHayImagen) {
+            celda.removeEventListener('click', this.despejar.bind(this));
             imagen.src = "imagenes/bandera.png";
             celda.appendChild(imagen);
         } else if (esBandera) {
