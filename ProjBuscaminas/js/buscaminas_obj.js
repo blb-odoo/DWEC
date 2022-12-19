@@ -82,6 +82,8 @@ class Buscaminas extends Tablero {
     constructor(filas, columnas, numMinas) {
         super(filas, columnas);
         this.numMinas = numMinas;
+        this.numBanderas = 0;
+        this.numCasillasADespejar = filas * columnas - numMinas;
 
         this.colocarMinas();
         this.colocarNumMinas();
@@ -164,50 +166,29 @@ class Buscaminas extends Tablero {
         celda.removeEventListener('click', this.despejar);
         celda.removeEventListener('contextmenu', this.marcar);
 
+        // Descontar una casillas pendiente de despejar
+        this.numCasillasADespejar--;
+        console.log(this.numCasillasADespejar);
+
         let valorCelda = this.arrayTablero[fila][columna];
         let esNumero = (valorCelda != 'MINA' && valorCelda != 0);
         let esBomba = (valorCelda == 'MINA');
         let esVacio = (valorCelda == 0);
         let estaDespejado;
-        let bombaSeleccionadaMal;
-
-        let rutaBandera = "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/bandera.png";
         
-        let arrayFilas;
-        let arrayColumnas; 
+    
         let celdaNueva;
 
         if (esNumero) {
             celda.innerHTML = valorCelda;
+
+            if (this.numCasillasADespejar == 0) {
+                this.resolverTablero(celda, true);
+            }    
             
         } else if (esBomba) {
-            
-            arrayFilas = celda.parentNode.parentNode.childNodes;
-            for (let tr of arrayFilas) {
-                arrayColumnas = tr.childNodes;
-                for (let td of arrayColumnas){
-                    td.removeEventListener('click', this.despejar);
-                    td.removeEventListener('contextmenu', this.marcar);
+            this.resolverTablero(celda,false);
 
-                    fila = td.dataset.fila;
-                    columna = td.dataset.columna;
-                    valorCelda = this.arrayTablero[fila][columna]
-                    if (td.lastChild != null){
-                        bombaSeleccionadaMal = (td.lastChild.src ==  rutaBandera && valorCelda != 'MINA');
-                    
-                        if (bombaSeleccionadaMal){
-                            td.lastChild.src = "";
-                            td.style.backgroundColor = 'red';
-                            td.innerHTML = valorCelda;
-                        } else if (valorCelda == 'MINA') {
-                            td.innerHTML = valorCelda;
-                        }
-                    } else if (valorCelda == 'MINA') {
-                            td.innerHTML = valorCelda;
-                    }
-                }
-            }
-            alert(`¡HAS PERDIDO!`);
         }else if (esVacio) {
 
             for (let cFila = fila - 1; cFila <= fila + 1; cFila++) {
@@ -224,8 +205,11 @@ class Buscaminas extends Tablero {
                     }
                 }
             }
+            if (this.numCasillasADespejar == 0) {
+                this.resolverTablero(celda, true);
+            }
         }
-
+        
     }
 
     marcar(elEvento) {
@@ -258,13 +242,20 @@ class Buscaminas extends Tablero {
         if (noHayImagen) {
             celda.removeEventListener('click', this.despejar);
             imagen.src = "imagenes/bandera.png";
+            this.numBanderas++;
             celda.appendChild(imagen);
+            if (this.numBanderas == this.numMinas && this.numCasillasADespejar == 0) {
+                this.resolverTablero(celda, true);
+            }
         } else if (esBandera) {
             celda.addEventListener('click', this.despejar);
             celda.lastChild.src = "imagenes/interrogante.png";
+            this.numBanderas--;
         } else if (esInterrogante) {
             celda.removeChild(celda.lastChild);
         }
+
+        console.log(this.numBanderas);
 
         // Utilizando los formatos UNICODE de JS
         /*
@@ -294,6 +285,49 @@ class Buscaminas extends Tablero {
             
     }
 
+    resolverTablero(celda, hasGanado) {
+        let bombaSeleccionadaMal;
+        let rutaBandera = "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/bandera.png";
+        let arrayFilas = celda.parentNode.parentNode.childNodes;
+        let arrayColumnas;
+
+        let fila;
+        let columna;
+        let valorCelda;
+
+
+        for (let tr of arrayFilas) {
+            arrayColumnas = tr.childNodes;
+            for (let td of arrayColumnas){
+                td.removeEventListener('click', this.despejar);
+                td.removeEventListener('contextmenu', this.marcar);
+
+                fila = td.dataset.fila;
+                columna = td.dataset.columna;
+                valorCelda = this.arrayTablero[fila][columna]
+                if (td.lastChild != null){
+                    bombaSeleccionadaMal = (td.lastChild.src ==  rutaBandera && valorCelda != 'MINA');
+                
+                    if (bombaSeleccionadaMal){
+                        td.lastChild.src = "";
+                        td.style.backgroundColor = 'red';
+                        td.innerHTML = valorCelda;
+                        hasGanado = false;
+                    } else if (valorCelda == 'MINA') {
+                        td.innerHTML = valorCelda;
+                    }
+                } else if (valorCelda == 'MINA') {
+                        td.innerHTML = valorCelda;
+                }
+            }   
+        }
+
+        if (hasGanado) {
+            alert('ENHORABUENA, HAS GANADO');
+        } else {
+            alert('LO SIENTO, HAS PERDIDO');
+        }
+    }
 }
 
 window.onload = function() {
