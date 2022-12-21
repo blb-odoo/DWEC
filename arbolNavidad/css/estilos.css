@@ -1,0 +1,26 @@
+p {
+    text-align: center;
+    height: 5px;
+    font-size: 50px;
+}
+
+.estrellaEncendida {
+    color: yellow;
+}
+
+.luzRoja {
+    color: red;
+}
+
+.luzVerde {
+    color: green;
+}
+
+.luzAzul {
+    color:blue;
+}
+
+.button {
+    text-align: center;
+    font-size: 16px;
+}
