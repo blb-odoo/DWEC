@@ -9,7 +9,9 @@ function validarDatos(){
     patrones.set("apellidos", /^[A-Za-záéíóúüàèiòÁÉÍÓÚÀÈÒÜñÑçÇ]{2,}$/);
     patrones.set("email", /^.+@.+$/);
     patrones.set("telefonoNacional", /^([89][^09]|[67][0-9])[0-9]{7}$/);
-    
+    patrones.set("telefonoConPrefijo", /^\(\+[0-9]{1,3}\)([89][^09]|[67][0-9])[0-9]{7}$/);
+    patrones.set("fecha", /^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/[0-9]{4}$/)
+
     this.className = "";
     if (patrones.get(this.id).test(this.value)) {
         this.className = "verde";
