@@ -1,26 +1,3 @@
-/**
- * Función para validar el nombre y apellidos del formulario
- */
-function validarNombre() {
-    let patron = /^[A-Za-záéíóúüàèiòÁÉÍÓÚÀÈÒÜñÑçÇ]{2,}$/;
-
-    this.className = "";
-    if (patron.test(this.value)) {
-        this.className = "verde";
-    }
-}
-
-/**
- * Función para validar el email del formulario
- */
-function validarEmail() {
-    let patron = /^.+@.+$/;
-
-    this.className = "";
-    if (patron.test(this.value)) {
-        this.className = "verde";
-    }
-}
 
 /**
  * Función para validar varios patrones
