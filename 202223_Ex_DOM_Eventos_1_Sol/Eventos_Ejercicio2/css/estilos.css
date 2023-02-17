@@ -1,0 +1,16 @@
+h1, h2{
+    text-align: center;
+}
+
+div{
+    text-align: center;
+}
+
+button {
+    font-size: xx-large;
+}
+
+textarea {
+    width: 250px;
+    height: 200px;
+}
